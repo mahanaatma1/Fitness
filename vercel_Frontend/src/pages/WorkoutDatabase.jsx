@@ -29,7 +29,7 @@ const WorkoutDatabase = () => {
     setIsLoading(true);
 
     try {
-      const response = await api.get(`/api/exercises/search?type=bodyPart&query=${isExercise}`);
+      const response = await api.get(`/exercises/search?type=bodyPart&query=${isExercise}`);
       setExercises(response.data);
     } catch (error) {
       console.error(error);

@@ -18,7 +18,7 @@ const SignIn = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await api.post(`/api/users/login`, {
+      const response = await api.post(`/users/login`, {
         email,
         password,
       });

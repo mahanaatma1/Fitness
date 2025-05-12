@@ -73,7 +73,7 @@ const VerifyOTP = () => {
     }
 
     try {
-      const response = await api.post(`/api/users/verify-otp`, {
+      const response = await api.post(`/users/verify-otp`, {
         email,
         otp: otpString,
       });
@@ -103,7 +103,7 @@ const VerifyOTP = () => {
   const handleResendOTP = async () => {
     setResendLoading(true);
     try {
-      await api.post(`/api/users/resend-otp`, { email });
+      await api.post(`/users/resend-otp`, { email });
       toast.success("New OTP sent to your email");
       setTimeLeft(60); // 60 seconds cooldown
 
