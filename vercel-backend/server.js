@@ -23,7 +23,7 @@ app.use(express.json());
 // Enable CORS to allow requests from frontend
 app.use(
   cors({
-    origin: ['https://vercel-frontend-4zlq.onrender.com', 'http://localhost:5173'],
+    origin: process.env.CLIENT_URL ? [process.env.CLIENT_URL] : ['http://localhost:5173'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']

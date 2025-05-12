@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 // Create an axios instance with the correct base URL
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 const api = axios.create({
-  baseURL: import.meta.env.MODE === 'development' 
-    ? '' // Use the proxy in development
-    : 'https://vercel-backend-7u0a.onrender.com', // Use the actual backend URL in production
+  baseURL: baseURL,
   withCredentials: true
 });
 

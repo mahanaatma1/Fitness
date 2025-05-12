@@ -5,16 +5,16 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
   // Define proxy configuration based on environment
-  const proxy = {};
+  const proxy = {
+    '/api': {
+      target: env.VITE_BACKEND_URL || 'http://localhost:5000',
+      changeOrigin: true,
+      secure: false,
+    },
+  };
   
   // Only use proxy in development mode
   if (mode === 'development') {
-    proxy['/api'] = {
-      target: 'http://localhost:5000',
-      changeOrigin: true,
-      secure: false
-    };
-    
     if (env.REACT_APP_API_URL) {
       proxy['/uploads'] = env.REACT_APP_API_URL;
     }
@@ -44,9 +44,7 @@ export default defineConfig(({ mode }) => {
     },
     // Define environment variables for client-side code
     define: {
-      'process.env.BACKEND_URL': mode === 'production' 
-        ? JSON.stringify('https://vercel-backend-7u0a.onrender.com')
-        : JSON.stringify('')
+      'process.env.VITE_BACKEND_URL': JSON.stringify(env.VITE_BACKEND_URL)
     }
   };
 });

@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: fitness-tracker-backend
+    env: node
+    rootDir: vercel-backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: CALORIE_NINJAS_API_KEY
+        sync: false
+      - key: RAPID_API_KEY
+        sync: false
+      - key: RAPID_API_HOST
+        value: exercisedb.p.rapidapi.com
+
+  - type: static
+    name: fitness-tracker-frontend
+    rootDir: vercel_Frontend
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: VITE_CALORIE_NINJAS_API_KEY
+        sync: false
+      - key: VITE_RAPID_API_KEY
+        sync: false
+      - key: VITE_RAPID_API_HOST
+        value: exercisedb.p.rapidapi.com
+      - key: VITE_BACKEND_URL
+        value: https://fitness-8pg0.onrender.com/api 
