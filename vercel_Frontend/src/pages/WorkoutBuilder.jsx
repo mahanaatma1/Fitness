@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import Card from "../components/Card";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
@@ -52,9 +52,9 @@ const WorkoutBuilder = () => {
 
       try {
         const [bodyPartRes, equipmentRes, targetRes] = await Promise.all([
-          axios.get(`/api/exercises/bodyPartList`),
-          axios.get(`/api/exercises/equipmentList`),
-          axios.get(`/api/exercises/targetList`)
+          api.get(`/exercises/bodyPartList`),
+          api.get(`/exercises/equipmentList`),
+          api.get(`/exercises/targetList`)
         ]);
 
         setBodyParts(bodyPartRes.data || []);
@@ -99,8 +99,8 @@ const WorkoutBuilder = () => {
         query = selectedTarget;
       }
 
-      const response = await axios.get(
-        `/api/exercises/search?type=${type}&query=${encodeURIComponent(query)}`
+      const response = await api.get(
+        `/exercises/search?type=${type}&query=${encodeURIComponent(query)}`
       );
 
       // Set the exercises state with the response data
