@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+import api from "../utils/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -76,8 +76,8 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post(
-        `/api/users/contact`,
+      const response = await api.post(
+        `/users/contact`,
         formData
       );
 

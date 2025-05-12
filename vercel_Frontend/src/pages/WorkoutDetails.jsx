@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../utils/api'
 import { useAuth } from '../context/AuthContext'
 import { Line } from 'react-chartjs-2'
 import {
@@ -100,14 +100,11 @@ const WorkoutDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(`/api/workouts`, {
+      const response = await api.post(`/workouts`, {
         ...workoutData,
         repsPerSet: workoutData.repsPerSet.map(rep => parseInt(rep || 0)),
         weightPerSet: workoutData.weightPerSet.map(weight => parseFloat(weight || 0))
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('jwttoken')}` }
-      })
-      // console.log('Workout added:', response.data)
+      });
       setWorkoutData({ muscleGroup: '', exercise: '', sets: '', repsPerSet: [], weightPerSet: [] })
       fetchPastWorkouts()
     } catch (error) {
@@ -117,9 +114,7 @@ const WorkoutDetails = () => {
 
   const fetchPastWorkouts = async () => {
     try {
-      const response = await axios.get(`/api/workouts`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('jwttoken')}` }
-      });
+      const response = await api.get(`/workouts`);
       setPastWorkouts(response.data);
     } catch (error) {
       console.error('Error fetching past workouts:', error);
@@ -129,9 +124,7 @@ const WorkoutDetails = () => {
   const fetchAnalytics = async () => {
     if (!analyticsExercise) return;
     try {
-      const response = await axios.get(`/api/workouts/analytics?exercise=${analyticsExercise}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('jwttoken')}` }
-      });
+      const response = await api.get(`/workouts/analytics?exercise=${analyticsExercise}`);
       setAnalyticsData(response.data);
     } catch (error) {
       console.error('Error fetching analytics:', error);
